@@ -15,9 +15,11 @@ library(sf)
 
 
 
-# Read in and eyeball data
+# Read in, save CRS and eyeball data
 
-shape <- read_sf("data/SA2_2016_AUST.shp") # DN need to fix +proj=longlat +datum=WGS84
+shape     <- read_sf("data/SA2_2016_AUST.shp") # DN need to fix +proj=longlat +datum=WGS84
+shape_crs <- st_crs(shape)
+
 shape
 
 
@@ -54,10 +56,9 @@ aus_box <- rbind(
   c(155, -9), 
   c(110, -9), 
   c(110, -45), 
-  c(155, -45)
-)
-
-
+  c(155, -45),
+  c(155, -9)
+) 
 
 
 # Plot boundary 
@@ -69,13 +70,14 @@ leaflet(aus_box) %>%
 
 
 
-# Convert to a polygon and match CRS
+# Convert to a simple features polygon 
 
 aus_box <- aus_box %>% 
-  extent() %>% 
-  as("SpatialPolygons") %>% 
-  st_as_sf() %>% 
-  st_set_crs(st_crs(shape))
+  list() %>%            # Convert to list
+  st_polygon() %>%      # Convert to polygon
+  st_sfc %>%            # Convert to column
+  st_sf %>%             # Convert to data frame
+  st_set_crs(shape_crs) # Set CRS
 
 
 
