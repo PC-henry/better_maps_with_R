@@ -6,21 +6,20 @@
 
 # Load packages
 
-library(tidyverse)
-library(rmapshaper)
 library(raster)
 library(leaflet)
 library(sf)
+library(rmapshaper)
+library(readxl)
+library(tidyverse)
 
 
 
 
 # Read in, save CRS and eyeball data
 
-shape     <- read_sf("data/SA2_2016_AUST.shp") # DN need to fix +proj=longlat +datum=WGS84
-shape_crs <- st_crs(shape)
-
-shape
+shape <- read_sf("data/SA2_2016_AUST.shp")
+summary(shape)
 
 
 
@@ -30,6 +29,23 @@ shape
 leaflet(shape) %>% 
   addTiles() %>% 
   addPolygons(label = ~SA2_NAME16)
+
+
+
+
+# Copy CRS (Geocentric Datum of Australia)
+
+shape_crs <- st_crs(shape)
+
+
+
+
+# Set code columns to numeric
+
+shape <- shape %>% 
+  mutate(
+    SA2_MAIN16 = as.numeric(SA2_MAIN16)
+  ) 
 
 
 
@@ -95,6 +111,54 @@ leaflet(shape) %>%
   addTiles() %>% 
   addPolygons(label = ~SA2_NAME16)
 
+
+
+
+# Read in ABS socioeconomic data
+
+seifa <- read_excel(
+  path  = "data/SA2 SEIFA.xls",
+  sheet = "Table 1",
+  range = "A6:D2197"
+)
+
+
+
+# Harmonise names with SA2 data
+
+names(seifa) <- c(
+  "SA2_MAIN16", # SA2 code
+  "SA2_NAME16", # SA2 name
+  "Score",      # SEIFA score
+  "Decile"      # SEIFA decile
+)
+
+
+
+
+# Drop inconsistant name column
+
+seifa <- seifa %>% 
+  select(-SA2_NAME16)
+
+
+
+
+
+
+# Merge data 
+
+shape <- shape %>% 
+  left_join(seifa)
+
+
+
+
+# Create a choropleth of seifa
+
+leaflet(shape) %>% 
+  addTiles() %>% 
+  addPolygons(stroke = )
 
 
 
