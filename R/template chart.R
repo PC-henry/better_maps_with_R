@@ -124,6 +124,7 @@ seifa <- read_excel(
 
 
 
+
 # Harmonise names with SA2 data
 
 names(seifa) <- c(
@@ -136,12 +137,11 @@ names(seifa) <- c(
 
 
 
-# Drop inconsistant name column
+# Drop name column and reclass
 
 seifa <- seifa %>% 
-  select(-SA2_NAME16)
-
-
+  select(-SA2_NAME16) %>% 
+  mutate_all(as.numeric)
 
 
 
@@ -156,9 +156,18 @@ shape <- shape %>%
 
 # Create a choropleth of seifa
 
+pal <- colorNumeric(
+  palette = "Spectral",
+  domain = shape$Score
+)
+
 leaflet(shape) %>% 
   addTiles() %>% 
-  addPolygons(stroke = )
+  addPolygons(
+    fillColor = ~pal(Score), 
+    weight    = 0.5, 
+    color     = "grey"
+  )
 
 
 
