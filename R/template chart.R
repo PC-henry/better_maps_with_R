@@ -164,9 +164,10 @@ pal <- colorNumeric(
 leaflet(shape) %>% 
   addTiles() %>% 
   addPolygons(
-    fillColor = ~pal(Score), 
-    weight    = 0.5, 
-    color     = "grey"
+    fillColor   = ~pal(Score),
+    fillOpacity = 0.7,
+    weight      = 0.5, 
+    color       = "grey"
   )
 
 
