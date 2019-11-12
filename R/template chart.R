@@ -176,29 +176,46 @@ leaflet(shape) %>%
 ##Choropleth using ggplot
 ################################################
 
-maptheme <- theme(panel.grid.major = element_line(colour = 'transparent'), ## element_blank error not working
-                  panel.grid.minor = element_blank(),
-                  panel.background = element_blank(), 
-                  axis.line = element_blank(),
-                  axis.title=element_blank(),
-                  axis.text=element_blank(),
-                  axis.ticks=element_blank()
+
+# Create map theme objects
+
+maptheme <- theme(
+  panel.grid.major = element_line(colour = "transparent"), 
+  panel.grid.minor = element_blank(),
+  panel.background = element_blank(), 
+  axis.line        = element_blank(),
+  axis.title       = element_blank(),
+  axis.text        = element_blank(),
+  axis.ticks       = element_blank(),
+  legend.position  = "none"
 )
 
 linesize <- 0.0001
 
-shape[is.na(shape)] <- 0
 
-SEIFA_Choropleth_SA2 <- ggplot() +
-  geom_sf(data = shape,  aes(fill=factor(Decile)), size=1/15) +
-  scale_fill_brewer(type="SEIFA", palette = "Spectral") +
-  maptheme +
-  coord_sf(xlim = c(110, 157), ylim = c(-45, -10), expand = FALSE) +
-  theme(legend.position = "none")
 
-ggsave(("data/Choropleth_Aus_SEFIA_SA2.png"),
-       SEIFA_Choropleth_SA2,
-       width = 15, height = 8.5 , units = "cm")
+
+# Set NA values to zero for charting
+
+shape <- shape %>% 
+  replace(is.na(.), 0)
+
+
+
+
+# Create ggplot choropleth
+
+ggplot() +
+  geom_sf(
+    data = shape, 
+    size = 1 / 15,
+    aes(fill = factor(Decile))
+  ) +
+  scale_fill_brewer(
+    type    = "SEIFA", 
+    palette = "Spectral"
+  ) +
+  maptheme 
 
 
 
