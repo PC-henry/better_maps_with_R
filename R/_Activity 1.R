@@ -36,11 +36,12 @@ ggplot() +
   geom_sf(data = shape$geometry)+
   theme(
     axis.title = element_blank(),
-    axis.line = element_blank(),
-    axis.text = element_blank(),
+    axis.line  = element_blank(),
+    axis.text  = element_blank(),
     axis.ticks = element_blank(),
     panel.grid = element_blank(),
-    rect = element_blank())
+    rect       = element_blank()
+  ) # HM: reccomend removing teme as its covered in the next activity
 
 
 
