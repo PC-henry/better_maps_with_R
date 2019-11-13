@@ -32,7 +32,7 @@ Aus_pop_centres <- Aus_pop_centres %>% filter(Australian_Population_Grid_2011 !=
 
 
 #################################
-##Converitng Lat long to SA2
+##Converting Lat long to SA2
 #################################
 
 ## Lat long to SA2 (ASGS Package)

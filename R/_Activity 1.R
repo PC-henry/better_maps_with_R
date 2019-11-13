@@ -12,18 +12,39 @@ library(rmapshaper)
 library(readxl)
 library(tidyverse)
 
+################################################
+# Activity 1
+# Making a basic map
+################################################
 
+# Activity 1a. Making a basic map in ggplot2
 
-
-# Read in, save CRS and eyeball data
+# Read in and eyeball data
 
 shape <- read_sf("data/SA2_2016_AUST.shp")
 summary(shape)
+head(shape)
+
+# Convert to simple features
+
+shape <- shape %>% st_as_sf() 
+
+
+#Plot using ggplot2 and geom_sf()
+
+ggplot() +
+  geom_sf(data = shape$geometry)+
+  theme(
+    axis.title = element_blank(),
+    axis.line = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid = element_blank(),
+    rect = element_blank())
 
 
 
-
-# Make an interactive map in 3 lines
+# Activity 1b. Make an interactive map
 
 leaflet(shape) %>% 
   addTiles() %>% 
@@ -32,22 +53,22 @@ leaflet(shape) %>%
 
 
 
-# Copy CRS (Geocentric Datum of Australia)
+# Activity 1c. Find the CRS (Geocentric Datum of Australia)
 
 shape_crs <- st_crs(shape)
 
 
 
 
-# Set code columns to numeric
+# Activity 1d. Set code columns to numeric
 
 shape <- shape %>% 
   mutate(
     SA2_MAIN16 = as.numeric(SA2_MAIN16)
   ) 
 
-
-
+#*****************************************************************
+##This should be in Activity 4 Comms
 
 # Simplify map for visualisation/publication 
 
@@ -58,14 +79,13 @@ simpl_size <- object.size(shape)
 message(
   simpl_size / cmplx_size, " of original size"
 )
+#********************************************************************
 
 
 
+# Activity 1e Differencing shapes (removing Christmas and Cocos islands)
 
-# Differenceing shapes 
-# (removing Christmas and Cocos islands)
-
-# Latlong of map boundaries
+# Create a Lat/long of map boundaries
 
 aus_box <- rbind(
   c(155, -9), 
@@ -83,8 +103,6 @@ leaflet(aus_box) %>%
   addPolygons()
 
 
-
-
 # Convert to a simple features polygon 
 
 aus_box <- aus_box %>% 
@@ -95,13 +113,9 @@ aus_box <- aus_box %>%
   st_set_crs(shape_crs) # Set CRS
 
 
-
-
 # Trim the shapefile
 
 shape <- st_intersection(shape, aus_box)
-
-
 
 
 # Plot shape again
@@ -113,39 +127,3 @@ leaflet(shape) %>%
 
 
 
-# Read in ABS socioeconomic data
-
-seifa <- read_excel(
-  path  = "data/SA2 SEIFA.xls",
-  sheet = "Table 1",
-  range = "A6:D2197"
-)
-
-
-
-
-# Harmonise names with SA2 data
-
-names(seifa) <- c(
-  "SA2_MAIN16", # SA2 code
-  "SA2_NAME16", # SA2 name
-  "Score",      # SEIFA score
-  "Decile"      # SEIFA decile
-)
-
-
-
-
-# Drop name column and reclass
-
-seifa <- seifa %>% 
-  select(-SA2_NAME16) %>% 
-  mutate_all(as.numeric)
-
-
-
-
-# Merge data 
-
-shape <- shape %>% 
-  left_join(seifa)
