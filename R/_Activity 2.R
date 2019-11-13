@@ -1,9 +1,5 @@
 
-<<<<<<< HEAD
-# Moved this bit of code from Activity 1 to activity 2**********************************
-=======
 # Activity 2
->>>>>>> 9b474d3a79bdd8db06bfc7320ca951e6c8eab3e5
 
 ################################################
 # Activity 2
