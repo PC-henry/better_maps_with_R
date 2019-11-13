@@ -97,4 +97,5 @@ ggplot() +
 
 # YOUR TURN
 # Try to make a ggplot and a leaflet
-# using decile data instead of 
+# using the descrete decile data instead 
+# the score data.
