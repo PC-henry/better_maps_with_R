@@ -66,3 +66,7 @@ SEIFA_Pop_Grid_SA2 <- ggplot() +
   scale_color_brewer(type="SEIFA", palette = "Spectral") +
   maptheme + coord_sf(xlim = c(110, 157), ylim = c(-45, -10), expand = FALSE) +
   theme(legend.position = "none")
+
+
+SEIFA_Pop_Grid_SA2
+
