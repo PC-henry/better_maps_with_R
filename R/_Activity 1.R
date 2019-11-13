@@ -67,21 +67,6 @@ shape <- shape %>%
     SA2_MAIN16 = as.numeric(SA2_MAIN16)
   ) 
 
-#*****************************************************************
-##This should be in Activity 4 Comms
-
-# Simplify map for visualisation/publication 
-
-cmplx_size <- object.size(shape)
-shape      <- ms_simplify(shape)
-simpl_size <- object.size(shape)
-
-message(
-  simpl_size / cmplx_size, " of original size"
-)
-#********************************************************************
-
-
 
 # Activity 1e Differencing shapes (removing Christmas and Cocos islands)
 

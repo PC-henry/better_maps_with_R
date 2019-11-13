@@ -1,5 +1,9 @@
 
+<<<<<<< HEAD
 # Moved this bit of code from Activity 1 to activity 2**********************************
+=======
+# Activity 2
+>>>>>>> 9b474d3a79bdd8db06bfc7320ca951e6c8eab3e5
 
 ################################################
 # Activity 2
@@ -37,13 +41,17 @@ seifa <- seifa %>%
 shape <- shape %>% 
   left_join(seifa)
 
-
-# Create a choropleth of seifa
+# Make palette function using SEIFA 
 
 pal <- colorNumeric(
   palette = "Spectral",
   domain = shape$Score
 )
+
+
+
+
+# Make an interactive choropleth
 
 leaflet(shape) %>% 
   addTiles() %>% 
@@ -55,7 +63,9 @@ leaflet(shape) %>%
   )
 
 
-# Create map theme objects
+
+# Create ggplot map theme object
+
 
 maptheme <- theme(
   panel.grid.major = element_line(colour = "transparent"), 
@@ -67,8 +77,6 @@ maptheme <- theme(
   axis.ticks       = element_blank(),
   legend.position  = "none"
 )
-
-linesize <- 0.0001
 
 
 # Set NA values to zero for charting
@@ -83,11 +91,14 @@ ggplot() +
   geom_sf(
     data = shape, 
     size = 1 / 15,
-    aes(fill = factor(Decile))
+    aes(fill = Score)
   ) +
-  scale_fill_brewer(
-    type    = "SEIFA", 
-    palette = "Spectral"
-  ) +
+  scale_fill_continuous() +
   maptheme 
 
+
+
+
+# YOUR TURN
+# Try to make a ggplot and a leaflet
+# using decile data instead of 

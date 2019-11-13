@@ -58,7 +58,7 @@ POP_GRID_SEIFA[is.na(POP_GRID_SEIFA)] <- 0
 #################################
 
 SEIFA_Pop_Grid_SA2 <- ggplot() +
-  geom_sf(data = shape, size=linesize) +
+  geom_sf(data = shape, size=0.0001) +
   scale_fill_manual(values = c("grey", "white")) +
   geom_point(data = POP_GRID_SEIFA,
              aes(x = long, y = lat, 
