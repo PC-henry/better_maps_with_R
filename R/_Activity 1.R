@@ -24,12 +24,17 @@ shape <- read_sf("data/Simple SA2.shp")
 summary(shape)
 head(shape)
 
+
+
+
 # Activity 1d. Set code columns to numeric
 
 shape <- shape %>% 
   mutate(
     SA2_MAIN16 = as.numeric(SA2_MAIN16)
   ) 
+
+
 
 
 #Plot using ggplot2 and geom_sf()
@@ -57,9 +62,6 @@ ggplot() +
 leaflet(shape) %>% 
   addTiles() %>% 
   addPolygons(label = ~SA2_NAME16)
-
-
-
 
 
 
