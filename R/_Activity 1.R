@@ -25,9 +25,12 @@ shape <- read_sf("data/SA2_2016_AUST.shp")
 summary(shape)
 head(shape)
 
-# Convert to simple features
+# Activity 1d. Set code columns to numeric
 
-shape <- shape %>% st_as_sf() 
+shape <- shape %>% 
+  mutate(
+    SA2_MAIN16 = as.numeric(SA2_MAIN16)
+  ) 
 
 
 #Plot using ggplot2 and geom_sf()
@@ -53,20 +56,6 @@ leaflet(shape) %>%
 
 
 
-
-# Activity 1c. Find the CRS (Geocentric Datum of Australia)
-
-shape_crs <- st_crs(shape)
-
-
-
-
-# Activity 1d. Set code columns to numeric
-
-shape <- shape %>% 
-  mutate(
-    SA2_MAIN16 = as.numeric(SA2_MAIN16)
-  ) 
 
 
 # Activity 1e Differencing shapes (removing Christmas and Cocos islands)
