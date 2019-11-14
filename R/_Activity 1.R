@@ -13,8 +13,6 @@ library(readxl)     # Read excel data
 library(tidyverse)  # Charting and data manipulation
 
 
-
-
 # Activity 1a. Making a basic map in ggplot2
 
 # Read in and eyeball data
@@ -35,21 +33,7 @@ shape <- shape %>%
 #Plot using ggplot2 and geom_sf()
 
 ggplot() +
-  geom_sf(data = shape$geometry)+
-  ## I suggest that we don't put this theme stuff in yet. 
-  ## I think Our first message is the simplicity of making a chart
-  ## and then in the next part of the activity we can add theme elements
-  ## -Henry
-  theme(
-    axis.title = element_blank(),
-    axis.line  = element_blank(),
-    axis.text  = element_blank(),
-    axis.ticks = element_blank(),
-    panel.grid = element_blank(),
-    rect       = element_blank()
-  ) 
-
-
+  geom_sf(data = shape$geometry)
 
 
 # Activity 1b. Make an interactive map
@@ -59,12 +43,7 @@ leaflet(shape) %>%
   addPolygons(label = ~SA2_NAME16)
 
 
-
-
-
-
-
-# Activity 1e Differencing shapes (removing Christmas and Cocos islands)
+# Activity 1e. Differencing shapes (removing Christmas and Cocos islands)
 
 # Create a Lat/long of map boundaries
 
@@ -114,5 +93,15 @@ leaflet(shape) %>%
   addPolygons(label = ~SA2_NAME16)
 
 
-
+# Activity 1a. ggplot bonus content - removing background axis, labels and grid
+ggplot() +
+  geom_sf(data = shape$geometry)+
+theme(
+  axis.title = element_blank(),
+  axis.line  = element_blank(),
+  axis.text  = element_blank(),
+  axis.ticks = element_blank(),
+  panel.grid = element_blank(),
+  rect       = element_blank()
+) 
 
