@@ -1,27 +1,26 @@
-# When statistical areas lie – better maps with R
-# Copyright (C) Productivity Commission 2019
-# License: MIT (see LICENSE file)
+
+# ACTIVITY ONE
+# Making a basic map
 
 
 # Load packages
 
-library(raster)
-library(leaflet)
-library(sf)
-library(rmapshaper)
-library(readxl)
-library(tidyverse)
+library(raster)     # Use raster data
+library(leaflet)    # Interactive maps
+library(sf)         # Simple features data
+library(rmapshaper) # Simplify polygons
+library(readxl)     # Read excel data
+library(tidyverse)  # Charting and data manipulation
 
-################################################
-# Activity 1
-# Making a basic map
-################################################
+
+
 
 # Activity 1a. Making a basic map in ggplot2
 
 # Read in and eyeball data
 
-shape <- read_sf("data/SA2_2016_AUST.shp")
+shape <- read_sf("data/Simple SA2.shp")
+
 summary(shape)
 head(shape)
 
@@ -37,6 +36,10 @@ shape <- shape %>%
 
 ggplot() +
   geom_sf(data = shape$geometry)+
+  ## I suggest that we don't put this theme stuff in yet. 
+  ## I think Our first message is the simplicity of making a chart
+  ## and then in the next part of the activity we can add theme elements
+  ## -Henry
   theme(
     axis.title = element_blank(),
     axis.line  = element_blank(),
@@ -44,7 +47,8 @@ ggplot() +
     axis.ticks = element_blank(),
     panel.grid = element_blank(),
     rect       = element_blank()
-  ) # HM: reccomend removing teme as its covered in the next activity
+  ) 
+
 
 
 
@@ -53,6 +57,8 @@ ggplot() +
 leaflet(shape) %>% 
   addTiles() %>% 
   addPolygons(label = ~SA2_NAME16)
+
+
 
 
 
@@ -71,11 +77,15 @@ aus_box <- rbind(
 ) 
 
 
+
+
 # Plot boundary 
 
 leaflet(aus_box) %>% 
   addTiles() %>% 
   addPolygons()
+
+
 
 
 # Convert to a simple features polygon 
@@ -88,9 +98,13 @@ aus_box <- aus_box %>%
   st_set_crs(shape_crs) # Set CRS
 
 
+
+
 # Trim the shapefile
 
 shape <- st_intersection(shape, aus_box)
+
+
 
 
 # Plot shape again
