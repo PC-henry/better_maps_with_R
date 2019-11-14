@@ -17,9 +17,6 @@ seifa <- read_excel(
   range = "A6:D2197"
 )
 
-
-
-
 # Harmonise names with SA2 data
 
 names(seifa) <- c(
@@ -30,8 +27,6 @@ names(seifa) <- c(
 )
 
 
-
-
 # Drop name column and reclass
 
 seifa <- seifa %>% 
@@ -39,15 +34,10 @@ seifa <- seifa %>%
   mutate_all(as.numeric)
 
 
-
-
 # Merge data 
 
 shape <- shape %>% 
   left_join(seifa)
-
-
-
 
 # Make palette function using SEIFA 
 
@@ -72,8 +62,8 @@ leaflet(shape) %>%
 
 
 
-
 # Create ggplot map theme object
+
 
 maptheme <- theme(
   panel.grid.major = element_line(colour = "transparent"), 
@@ -87,14 +77,10 @@ maptheme <- theme(
 )
 
 
-
-
 # Set NA values to zero for charting
 
 shape <- shape %>% 
   replace(is.na(.), 0)
-
-
 
 
 # Create ggplot choropleth
