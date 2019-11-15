@@ -73,6 +73,8 @@ aus_box <- rbind(
 ) 
 
 
+
+
 # Plot boundary 
 
 leaflet(aus_box) %>% 
