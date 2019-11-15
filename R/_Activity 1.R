@@ -29,15 +29,6 @@ head(shape)
 
 # Set SA2_MAIN16 variable to numeric
 
-# Save CRS for later
-
-shape_crs <- st_crs(shape)
-
-
-
-
-# Set code columns to numeric
-
 shape <- shape %>% 
   mutate(
     SA2_MAIN16 = as.numeric(SA2_MAIN16)
@@ -62,11 +53,6 @@ leaflet(shape) %>%
 
 
 
-
-# Activity 1c. Differencing shapes - removing Christmas and Cocos islands
-
-
-
 # Activity 1c. Differencing shapes (removing Christmas and Cocos islands)
 
 # Create a Lat/long of map boundaries
@@ -81,7 +67,6 @@ aus_box <- rbind(
 
 
 
-
 # Plot boundary 
 
 leaflet(aus_box) %>% 
@@ -89,6 +74,10 @@ leaflet(aus_box) %>%
   addPolygons()
 
 
+
+# Save CRS
+
+shape_crs <- st_crs(shape)
 
 
 # Convert to a simple features polygon 
