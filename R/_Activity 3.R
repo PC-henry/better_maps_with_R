@@ -18,40 +18,44 @@ abspop <- raster("data/Australian_Population_Grid_2011.tif")
 
 # Convert raster to SpatialPointsDataFrame
 
-populations <- rasterToPoints(abspop, spatial = TRUE)
+populations <- rasterToPoints(
+  abspop, 
+  spatial = TRUE
+)
 
 
 
 
 # reproject sp object
 
-geo.prj <- "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0" 
-r.pts <- spTransform(populations, CRS(geo.prj)) 
+populations <- populations %>% 
+  st_as_sf() %>% 
+  st_transform(shape_crs)
 
 
 
 
-# Assign coordinates to @data slot, display first 6 rows of data.frame
-
-r.pts@data <- data.frame(r.pts@data, long=coordinates(r.pts)[,1],
-                         lat=coordinates(r.pts)[,2])  
-
-
-
-#save as data.frame
-
-Aus_pop_centres  <- as.data.frame(r.pts)
-
-###select only latitude longditude and number of service type
-
-Aus_pop_centres <- Aus_pop_centres[,c(1:3)]
-
-
-
-
-###remove zero values
-
-Aus_pop_centres <- Aus_pop_centres %>% filter(Australian_Population_Grid_2011 != 0)
+# # Assign coordinates to @data slot, display first 6 rows of data.frame
+# 
+# r.pts@data <- data.frame(r.pts@data, long=coordinates(r.pts)[,1],
+#                          lat=coordinates(r.pts)[,2])  
+# 
+# 
+# 
+# #save as data.frame
+# 
+# Aus_pop_centres  <- as.data.frame(r.pts)
+# 
+# ###select only latitude longditude and number of service type
+# 
+# Aus_pop_centres <- Aus_pop_centres[,c(1:3)]
+# 
+# 
+# 
+# 
+# ###remove zero values
+# 
+# Aus_pop_centres <- Aus_pop_centres %>% filter(Australian_Population_Grid_2011 != 0)
 
 
 
