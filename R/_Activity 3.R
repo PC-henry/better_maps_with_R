@@ -4,7 +4,7 @@
 
 # Check SEIFA data is loaded
 
-if(!exists(seifa)) source("R/_Activity 2.R")
+if(!exists("seifa")) source("R/_Activity 2.R")
 
 
 
@@ -18,7 +18,7 @@ abspop <- raster("data/Australian_Population_Grid_2011.tif")
 
 # Convert raster to SpatialPointsDataFrame
 
-r.pts <- rasterToPoints(ABSpop, spatial=TRUE)
+populations <- rasterToPoints(abspop, spatial = TRUE)
 
 
 
@@ -26,7 +26,7 @@ r.pts <- rasterToPoints(ABSpop, spatial=TRUE)
 # reproject sp object
 
 geo.prj <- "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0" 
-r.pts <- spTransform(r.pts, CRS(geo.prj)) 
+r.pts <- spTransform(populations, CRS(geo.prj)) 
 
 
 

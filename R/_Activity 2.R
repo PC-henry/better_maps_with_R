@@ -4,7 +4,7 @@
 
 # Check SA2 data is loaded
 
-if(!exists(shape)) source("R/_Activity 1.R")
+if(!exists("shape")) source("R/_Activity 1.R")
 
 
 
