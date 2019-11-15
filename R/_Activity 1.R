@@ -8,7 +8,6 @@
 library(raster)     # Use raster data
 library(leaflet)    # Interactive maps
 library(sf)         # Simple features data
-library(rmapshaper) # Simplify polygons
 library(readxl)     # Read excel data
 library(tidyverse)  # Charting and data manipulation
 
