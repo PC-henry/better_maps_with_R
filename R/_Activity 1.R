@@ -51,6 +51,8 @@ leaflet(shape) %>%
   addTiles() %>% 
   addPolygons(label = ~SA2_NAME16)
 
+# YOUR TURN
+
 
 
 # Activity 1c. Differencing shapes (removing Christmas and Cocos islands)
