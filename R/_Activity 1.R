@@ -25,7 +25,7 @@ head(shape)
 
 
 
-# Activity 1d. Set code columns to numeric
+# Set code columns to numeric
 
 shape <- shape %>% 
   mutate(
@@ -49,7 +49,7 @@ leaflet(shape) %>%
 
 
 
-# Activity 1e. Differencing shapes (removing Christmas and Cocos islands)
+# Activity 1c. Differencing shapes (removing Christmas and Cocos islands)
 
 
 
@@ -62,8 +62,6 @@ aus_box <- rbind(
   c(155, -45),
   c(155, -9)
 ) 
-
-
 
 
 # Plot boundary 
