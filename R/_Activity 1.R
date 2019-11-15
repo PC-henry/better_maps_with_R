@@ -24,7 +24,7 @@ head(shape)
 
 
 
-# Set code columns to numeric
+# Set SA2_MAIN16 variable to numeric
 
 shape <- shape %>% 
   mutate(
@@ -48,7 +48,7 @@ leaflet(shape) %>%
 
 
 
-# Activity 1c. Differencing shapes (removing Christmas and Cocos islands)
+# Activity 1c. Differencing shapes - removing Christmas and Cocos islands
 
 
 
