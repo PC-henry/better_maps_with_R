@@ -12,7 +12,7 @@ if(!exists("shape")) source("R/_Activity 1.R")
 
 # Read in ABS socioeconomic data
 
-seifa <- read_excel(
+irsd <- read_excel(
   path  = "data/SA2 SEIFA.xls",
   sheet = "Table 1",
   range = "A6:D2197"
@@ -23,7 +23,7 @@ seifa <- read_excel(
 
 # Harmonise names with SA2 data
 
-names(seifa) <- c(
+names(irsd) <- c(
   "SA2_MAIN16", # SA2 code
   "SA2_NAME16", # SA2 name
   "Score",      # SEIFA score
@@ -35,7 +35,7 @@ names(seifa) <- c(
 
 # Drop name column and reclass
 
-seifa <- seifa %>% 
+irsd <- irsd %>% 
   select(-SA2_NAME16) %>% 
   mutate_all(as.numeric)
 
@@ -45,12 +45,12 @@ seifa <- seifa %>%
 # Merge data 
 
 shape <- shape %>% 
-  left_join(seifa)
+  left_join(irsd)
 
 
 
 
-# Make palette function using SEIFA 
+# Make palette function using IRSD 
 
 pal <- colorNumeric(
   palette = "Spectral",
@@ -83,8 +83,7 @@ maptheme <- theme(
   axis.line        = element_blank(),
   axis.title       = element_blank(),
   axis.text        = element_blank(),
-  axis.ticks       = element_blank(),
-  legend.position  = "none"
+  axis.ticks       = element_blank()
 )
 
 
@@ -108,11 +107,10 @@ ggplot() +
   ) +
   scale_fill_continuous() +
   maptheme 
+  
 
 
 
 
 # YOUR TURN
-# Try to make a ggplot and a leaflet
-# using the descrete decile data instead 
-# the score data.
+# Try to make a ggplot and a leaflet using the descrete decile data instead of the score data 

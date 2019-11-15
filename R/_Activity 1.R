@@ -26,14 +26,8 @@ head(shape)
 
 
 
-# Save CRS for later
 
-shape_crs <- st_crs(shape)
-
-
-
-
-# Set code columns to numeric
+# Set SA2_MAIN16 variable to numeric
 
 shape <- shape %>% 
   mutate(
@@ -57,6 +51,7 @@ leaflet(shape) %>%
   addTiles() %>% 
   addPolygons(label = ~SA2_NAME16)
 
+# YOUR TURN
 
 
 
@@ -74,7 +69,6 @@ aus_box <- rbind(
 
 
 
-
 # Plot boundary 
 
 leaflet(aus_box) %>% 
@@ -82,6 +76,10 @@ leaflet(aus_box) %>%
   addPolygons()
 
 
+
+# Save CRS
+
+shape_crs <- st_crs(shape)
 
 
 # Convert to a simple features polygon 
