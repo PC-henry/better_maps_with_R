@@ -12,6 +12,8 @@ library(readxl)     # Read excel data
 library(tidyverse)  # Charting and data manipulation
 
 
+
+
 # Activity 1a. Making a basic map in ggplot2
 
 # Read in and eyeball data
@@ -24,7 +26,17 @@ head(shape)
 
 
 
+
 # Set SA2_MAIN16 variable to numeric
+
+# Save CRS for later
+
+shape_crs <- st_crs(shape)
+
+
+
+
+# Set code columns to numeric
 
 shape <- shape %>% 
   mutate(
@@ -40,6 +52,8 @@ ggplot() +
   geom_sf(data = shape$geometry)
 
 
+
+
 # Activity 1b. Make an interactive map
 
 leaflet(shape) %>% 
@@ -48,9 +62,12 @@ leaflet(shape) %>%
 
 
 
+
 # Activity 1c. Differencing shapes - removing Christmas and Cocos islands
 
 
+
+# Activity 1c. Differencing shapes (removing Christmas and Cocos islands)
 
 # Create a Lat/long of map boundaries
 
@@ -61,6 +78,8 @@ aus_box <- rbind(
   c(155, -45),
   c(155, -9)
 ) 
+
+
 
 
 # Plot boundary 
@@ -98,7 +117,10 @@ leaflet(shape) %>%
   addPolygons(label = ~SA2_NAME16)
 
 
+
+
 # Activity 1a. ggplot bonus content - removing background axis, labels and grid
+
 ggplot() +
   geom_sf(data = shape$geometry)+
 theme(
