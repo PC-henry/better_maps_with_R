@@ -1,6 +1,15 @@
 
 # Activity 2
 
+
+# Check SA2 data is loaded
+
+if(!exists(shape)) source("R/_Activity 1.R")
+
+
+
+
+
 # Read in ABS socioeconomic data
 
 seifa <- read_excel(

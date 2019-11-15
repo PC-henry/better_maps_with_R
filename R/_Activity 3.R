@@ -1,32 +1,56 @@
-################################################
-# Activity 3: Recreate choropleth using population grid data
-################################################
 
-#################################
-# import and clean Aus pop grid data
-#################################
+# ACTIVITY 3
+# Recreate choropleth using population grid data
+
+# Check SEIFA data is loaded
+
+if(!exists(seifa)) source("R/_Activity 2.R")
+
+
+
 
 # read in population grid data
-ABSpop <- raster("data/Australian_Population_Grid_2011.tif")
+
+abspop <- raster("data/Australian_Population_Grid_2011.tif")
+
+
+
 
 # Convert raster to SpatialPointsDataFrame
+
 r.pts <- rasterToPoints(ABSpop, spatial=TRUE)
 
+
+
+
 # reproject sp object
+
 geo.prj <- "+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0" 
 r.pts <- spTransform(r.pts, CRS(geo.prj)) 
 
+
+
+
 # Assign coordinates to @data slot, display first 6 rows of data.frame
+
 r.pts@data <- data.frame(r.pts@data, long=coordinates(r.pts)[,1],
                          lat=coordinates(r.pts)[,2])  
 
+
+
 #save as data.frame
+
 Aus_pop_centres  <- as.data.frame(r.pts)
 
 ###select only latitude longditude and number of service type
+
 Aus_pop_centres <- Aus_pop_centres[,c(1:3)]
 
+
+
+
 ###remove zero values
+
 Aus_pop_centres <- Aus_pop_centres %>% filter(Australian_Population_Grid_2011 != 0)
 
 
