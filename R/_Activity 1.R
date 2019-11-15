@@ -26,6 +26,13 @@ head(shape)
 
 
 
+# Save CRS for later
+
+shape_crs <- st_crs(shape)
+
+
+
+
 # Set code columns to numeric
 
 shape <- shape %>% 
@@ -42,11 +49,14 @@ ggplot() +
   geom_sf(data = shape$geometry)
 
 
+
+
 # Activity 1b. Make an interactive map
 
 leaflet(shape) %>% 
   addTiles() %>% 
   addPolygons(label = ~SA2_NAME16)
+
 
 
 
