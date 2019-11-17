@@ -53,9 +53,9 @@ shape <- shape %>%
 
 # Make palette function using IRSD 
 
-pal <- colorNumeric(
+pal <- colorFactor(
   palette = "Spectral",
-  domain = shape$Score
+  domain = shape$Decile
 )
 
 
@@ -66,7 +66,7 @@ pal <- colorNumeric(
 leaflet(shape) %>% 
   addTiles() %>% 
   addPolygons(
-    fillColor   = ~pal(Score),
+    fillColor   = ~pal(Decile),
     fillOpacity = 0.7,
     weight      = 0.5, 
     color       = "grey"
@@ -103,7 +103,7 @@ shape <- shape %>%
 ggplot() +
   geom_sf(
     data = shape, 
-    size = 1 / 15,
+    size = 1e-04,
     aes(fill = Decile)
   ) +
   scale_fill_brewer(palette = "Spectral") +
@@ -112,7 +112,7 @@ ggplot() +
 
 
 
-
 # YOUR TURN
 # Try to make a ggplot and a leaflet using the 
-# descrete decile data instead of the score data 
+# descrete score data instead of the decile data.
+# Try colorNumeric and scale_fill_continuous
