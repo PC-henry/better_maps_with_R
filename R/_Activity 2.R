@@ -36,8 +36,9 @@ names(irsd) <- c(
 # Drop name column and reclass
 
 irsd <- irsd %>% 
-  select(-SA2_NAME16) %>% 
-  mutate_all(as.numeric)
+  select(-SA2_NAME16) %>%         # Drop names
+  mutate_all(as.numeric) %>%      # All cols numeric
+  mutate(Decile = factor(Decile)) # Factor for charting
 
 
 
@@ -103,9 +104,9 @@ ggplot() +
   geom_sf(
     data = shape, 
     size = 1 / 15,
-    aes(fill = Score)
+    aes(fill = Decile)
   ) +
-  scale_fill_continuous() +
+  scale_fill_brewer(palette = "Spectral") +
   maptheme 
   
 
