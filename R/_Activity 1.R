@@ -55,7 +55,8 @@ leaflet(shape) %>%
 
 
 
-# Activity 1c. Differencing shapes (removing Christmas and Cocos islands)
+# Activity 1c. Differencing shapes 
+# (removing Christmas and Cocos islands)
 
 # Create a Lat/long of map boundaries
 
@@ -110,17 +111,18 @@ leaflet(shape) %>%
 
 
 
-# Activity 1a. ggplot bonus content - removing background axis, labels and grid
+# Activity 1a. ggplot bonus content 
+# - removing background axis, labels and grid
 
 ggplot() +
-  geom_sf(data = shape$geometry)+
-theme(
-  axis.title = element_blank(),
-  axis.line  = element_blank(),
-  axis.text  = element_blank(),
-  axis.ticks = element_blank(),
-  panel.grid = element_blank(),
-  rect       = element_blank()
-) 
+  geom_sf(data = shape) +
+  theme(
+    axis.title = element_blank(),
+    axis.line  = element_blank(),
+    axis.text  = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid = element_blank(),
+    rect       = element_blank()
+  ) 
 
 
