@@ -2,9 +2,9 @@
 # ACTIVITY 3
 # Recreate choropleth using population grid data
 
-# Check SEIFA data is loaded
+# Check IRSD data is loaded
 
-if(!exists("seifa")) source("R/_Activity 2.R")
+if(!exists("irsd")) source("R/_Activity 2.R")
 
 
 
