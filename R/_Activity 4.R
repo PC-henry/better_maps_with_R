@@ -1,11 +1,10 @@
 
 # ACTIVITY 4
 
-# Clear all previous work & release memory
-# for other users
+# Clear all previous work & restart
 
 rm(list = ls())
-gc()
+.rs.restartR()
 
 
 
@@ -35,7 +34,8 @@ shape       <- ms_simplify(shape)
 .simpl_size <- object.size(shape)
 
 message(
-  .simpl_size / .cmplx_size, " of original size"
+  round(.simpl_size / .cmplx_size, 2) * 100, 
+  "% of original size"
 )
 
 
