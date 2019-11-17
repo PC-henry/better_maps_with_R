@@ -53,14 +53,6 @@ pop <- pop %>%
 
 
 
-# Convert IRSD decile to factor for plots
-
-pop <- pop %>% 
-  mutate(Decile = factor(Decile))
-
-
-
-
 # Plot using ggplot 
 # Note: takes a long time to load
 
