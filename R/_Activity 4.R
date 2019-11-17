@@ -30,12 +30,12 @@ shape <- read_sf("data/SA2_2016_AUST.shp")
 
 # Simplify map for visualisation/publication 
 
-cmplx_size <- object.size(shape)
-shape      <- ms_simplify(shape)
-simpl_size <- object.size(shape)
+.cmplx_size <- object.size(shape)
+shape       <- ms_simplify(shape)
+.simpl_size <- object.size(shape)
 
 message(
-  simpl_size / cmplx_size, " of original size"
+  .simpl_size / .cmplx_size, " of original size"
 )
 
 
