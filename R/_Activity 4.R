@@ -1,9 +1,11 @@
 
 # ACTIVITY 4
 
-# Clear all previous work
+# Clear all previous work & release memory
+# for other users
 
 rm(list = ls())
+gc()
 
 
 

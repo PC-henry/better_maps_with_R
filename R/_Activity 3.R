@@ -9,92 +9,79 @@ if(!exists("seifa")) source("R/_Activity 2.R")
 
 
 
-# read in population grid data
+# Read in population grid data as points
 
-abspop <- raster("data/Australian_Population_Grid_2011.tif")
-
-
-
-
-# Convert raster to SpatialPointsDataFrame
-
-populations <- rasterToPoints(
-  abspop, 
-  spatial = TRUE
-)
+pop <- "data/Australian_Population_Grid_2011.tif" %>% 
+  raster() %>%
+  rasterToPoints(spatial = TRUE)
 
 
 
 
-# reproject sp object
+# Eyeball the dataframe features
 
-populations <- populations %>% 
+summary(pop)
+
+
+
+
+# Remove points with no population
+
+pop <- pop %>% 
+  subset(   
+    pop$Australian_Population_Grid_2011 > 0
+  ) 
+
+
+
+
+# Convert to SF & reproject to shape CRS
+
+pop <- pop %>% 
   st_as_sf() %>% 
   st_transform(shape_crs)
 
 
 
 
-# # Assign coordinates to @data slot, display first 6 rows of data.frame
-# 
-# r.pts@data <- data.frame(r.pts@data, long=coordinates(r.pts)[,1],
-#                          lat=coordinates(r.pts)[,2])  
-# 
-# 
-# 
-# #save as data.frame
-# 
-# Aus_pop_centres  <- as.data.frame(r.pts)
-# 
-# ###select only latitude longditude and number of service type
-# 
-# Aus_pop_centres <- Aus_pop_centres[,c(1:3)]
-# 
-# 
-# 
-# 
-# ###remove zero values
-# 
-# Aus_pop_centres <- Aus_pop_centres %>% filter(Australian_Population_Grid_2011 != 0)
+# Use spatial join function
+# Left FALSE means keep only matched points
+
+pop <- pop %>%
+  st_join(shape, left = FALSE)
 
 
 
-#################################
-##Converting Lat long to SA2
-#################################
 
-## Lat long to SA2 (ASGS Package)
-# ASGS.foyer::install_ASGS()
-library(ASGS)
+# Convert IRSD decile to factor for plots
 
-centres_SA2 <- as.data.frame(latlon2SA(Aus_pop_centres$lat, Aus_pop_centres$long, to = "SA2",yr = "2016",return = "v"))
-
-# Merge back to origional pop centre data 
-POP_SA2 <- cbind(Aus_pop_centres,centres_SA2) %>%
-  rename(SA2_NAME16=`latlon2SA(Aus_pop_centres$lat, Aus_pop_centres$long, to = "SA2", yr = "2016", return = "v")`)
-
-#### Merge SEIFA into population centers data based on SA2
-POP_GRID_SEIFA <- left_join(POP_SA2, shape, by="SA2_NAME16")
-
-# Replace missing SEIFA 
-POP_GRID_SEIFA[is.na(POP_GRID_SEIFA)] <- 0
+pop <- pop %>% 
+  mutate(Decile = factor(Decile))
 
 
 
-#################################
-### Plot using ggplot 
-#################################
 
-SEIFA_Pop_Grid_SA2 <- ggplot() +
-  geom_sf(data = shape, size=0.0001) +
-  scale_fill_manual(values = c("grey", "white")) +
-  geom_point(data = POP_GRID_SEIFA,
-             aes(x = long, y = lat, 
-                 color=factor(Decile)), size=0.0000000001, alpha=0.3) +
-  scale_color_brewer(type="SEIFA", palette = "Spectral") +
-  maptheme + coord_sf(xlim = c(110, 157), ylim = c(-45, -10), expand = FALSE) +
-  theme(legend.position = "none")
+# Plot using ggplot 
+# Note: takes a long time to load
 
-
-SEIFA_Pop_Grid_SA2
-
+ggplot() +
+  # Background SA2s
+  geom_sf(
+    data = shape, 
+    size = 1e-04
+  ) +
+  scale_fill_manual(
+    values = c("grey", "white")
+  ) +
+  # Foreground points
+  geom_sf(
+    data = pop, 
+    size = 1e-11, 
+    aes(colour = Decile)
+  ) +
+  scale_color_brewer(
+    palette = "Spectral"
+  ) +
+  # Theme 
+  maptheme
+  
