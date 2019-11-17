@@ -76,4 +76,13 @@ ggplot() +
   ) +
   # Theme 
   maptheme
-  
+
+
+
+
+# YOUR TURN
+# Try adding Australian_Population_Grid_2011
+# as an alpha aesthetic. 
+
+# Note: Be careful if trying to plot this in
+# leaflet. It can crash Rstudio.
