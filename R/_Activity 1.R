@@ -25,6 +25,12 @@ head(shape)
 
 
 
+#Plot using ggplot2 and geom_sf()
+
+ggplot(shape) +
+  geom_sf()
+
+
 
 
 # Set SA2_MAIN16 variable to numeric
@@ -33,14 +39,6 @@ shape <- shape %>%
   mutate(
     SA2_MAIN16 = as.numeric(SA2_MAIN16)
   ) 
-
-
-
-
-#Plot using ggplot2 and geom_sf()
-
-ggplot() +
-  geom_sf(data = shape$geometry)
 
 
 
