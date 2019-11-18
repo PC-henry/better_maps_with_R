@@ -59,8 +59,19 @@ pop <- pop %>%
 
 
 
+# Extract XY coordinates from SF
+# Sometimes its better to plot using geom_point
+# rather than geom_sf if you have lots of data
+
+pop <- pop %>% 
+  st_coordinates() %>% 
+  cbind(pop)
+
+
+
+
 # Plot using ggplot 
-# Note: takes a long time to load
+# Will take a while to load
 
 ggplot() +
   # Background SA2s
@@ -72,10 +83,10 @@ ggplot() +
     values = c("grey", "white")
   ) +
   # Foreground points
-  geom_sf(
+  geom_point(
     data = pop, 
     size = 1e-11, 
-    aes(colour = Decile)
+    aes(X, Y, colour = Decile)
   ) +
   scale_color_brewer(
     palette = "Spectral"
