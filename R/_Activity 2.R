@@ -37,8 +37,8 @@ names(irsd) <- c(
 
 irsd <- irsd %>% 
   select(-SA2_NAME16) %>%         # Drop names
-  mutate_all(as.numeric) %>%      # All cols numeric
-  mutate(Decile = factor(Decile)) # Factor for charting
+  mutate_all(as.numeric)          # All cols numeric
+  
 
 
 
@@ -93,7 +93,8 @@ maptheme <- theme(
 # Set NA values to zero for charting
 
 shape <- shape %>% 
-  replace(is.na(.), 0)
+  replace(is.na(.), 0) %>%
+  mutate(Decile = as.factor(Decile)) # Factor for charting
 
 
 
