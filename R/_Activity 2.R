@@ -102,7 +102,9 @@ ggplot() +
   maptheme 
   
 
+
+
 # YOUR TURN
 # Try to make a ggplot and a leaflet using the 
-# descrete score data instead of the decile data.
+# continuous score data instead of the decile data.
 # Try colorNumeric and scale_fill_continuous
