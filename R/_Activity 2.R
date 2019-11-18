@@ -38,12 +38,12 @@ names(irsd) <- c(
 irsd <- irsd %>% 
   select(-SA2_NAME16) %>%         # Drop names
   mutate_all(as.numeric)  %>%        # All cols numeric
-  mutate(Decile = as.factor(Decile)) # Factor for charting
+  mutate(Decile = as.factor(Decile)) # Convert to factor (category) for charting
 
 
 
 
-# Merge data 
+# Merge data by SA2 IDs
 
 shape <- shape %>% 
   left_join(irsd)
