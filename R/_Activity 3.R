@@ -77,7 +77,7 @@ ggplot() +
   # Background SA2s
   geom_sf(
     data = shape, 
-    size = 1e-04
+    size = 0.1
   ) +
   scale_fill_manual(
     values = c("grey", "white")
