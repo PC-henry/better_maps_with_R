@@ -17,6 +17,12 @@ pop <- "data/Australian_Population_Grid_2011.tif" %>%
 
 
 
+# Release memory
+
+gc()
+
+
+
 
 # Eyeball the dataframe features
 
