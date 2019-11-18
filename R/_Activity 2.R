@@ -37,8 +37,8 @@ names(irsd) <- c(
 
 irsd <- irsd %>% 
   select(-SA2_NAME16) %>%         # Drop names
-  mutate_all(as.numeric)          # All cols numeric
-  
+  mutate_all(as.numeric)  %>%        # All cols numeric
+  mutate(Decile = as.factor(Decile)) # Factor for charting
 
 
 
@@ -90,15 +90,6 @@ maptheme <- theme(
 
 
 
-# Set NA values to zero for charting
-
-shape <- shape %>% 
-  replace(is.na(.), 0) %>%
-  mutate(Decile = as.factor(Decile)) # Factor for charting
-
-
-
-
 # Create ggplot choropleth
 
 ggplot() +
@@ -110,8 +101,6 @@ ggplot() +
   scale_fill_brewer(palette = "Spectral") +
   maptheme 
   
-
-
 
 # YOUR TURN
 # Try to make a ggplot and a leaflet using the 
