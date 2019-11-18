@@ -95,7 +95,7 @@ maptheme <- theme(
 ggplot() +
   geom_sf(
     data = shape, 
-    size = 1e-04,
+    size = 0.1,
     aes(fill = Decile)
   ) +
   scale_fill_brewer(palette = "Spectral") +
