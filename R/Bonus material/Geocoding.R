@@ -39,8 +39,6 @@ locations <- c(
 
 
 # Geocode
-# Note plyr isn't great for multiple
-# column assignment
 
 locations <- locations %>% 
   geocode() %>% 
