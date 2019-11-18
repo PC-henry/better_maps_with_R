@@ -81,6 +81,8 @@ leaflet(aus_box) %>%
 shape_crs <- st_crs(shape)
 
 
+
+
 # Convert to a simple features polygon 
 
 aus_box <- aus_box %>% 
@@ -115,12 +117,13 @@ leaflet(shape) %>%
 ggplot() +
   geom_sf(data = shape) +
   theme(
-    axis.title = element_blank(),
-    axis.line  = element_blank(),
-    axis.text  = element_blank(),
-    axis.ticks = element_blank(),
-    panel.grid = element_blank(),
-    rect       = element_blank()
+    panel.grid.major = element_line(colour = "transparent"), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line        = element_blank(),
+    axis.title       = element_blank(),
+    axis.text        = element_blank(),
+    axis.ticks       = element_blank()
   ) 
 
 
